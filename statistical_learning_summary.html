@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary of "An Introduction to Statistical Learning with Applications in Python"</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ff6200 0%, #fff5e6 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background: #ff6200;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #fff5e6;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .book-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .book-title {
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-author {
+            font-size: 1.4em;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+
+        .book-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff6200;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 98, 0, 0.5);
+        }
+
+        .profile-img::after {
+            content: 'Profile';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #ff6200;
+            background: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-img:hover::after {
+            opacity: 1;
+        }
+
+        .section {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #ff6200;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #fff5e6;
+        }
+
+        .key-insight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(240, 147, 251, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .key-insight:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(240, 147, 251, 0.4);
+        }
+
+        .summary-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        .chapter-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .chapter-item {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 6px solid #ff6200;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chapter-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .chapter-summary {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .takeaways {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .takeaway-item {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+            font-weight: 500;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .takeaway-item:hover {
+            background: #e8f8f5;
+        }
+
+        .rating {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .stars {
+            font-size: 2.2em;
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+
+        .rating-text {
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6200, #fff5e6);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 98, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 98, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .book-card {
+                padding: 20px;
+            }
+            
+            .book-title {
+                font-size: 2.2em;
+            }
+            
+            .book-meta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .profile-img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .chapter-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#toc">Table of Contents</a></li>
+            <li><a href="#chapters">Chapters</a></li>
+            <li><a href="#algorithms">Algorithms</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="book-card">
+            <div class="book-header">
+                <h1 class="book-title">Summary of "An Introduction to Statistical Learning with Applications in Python"</h1>
+                <p class="book-author">by Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani</p>
+                
+            </div>
+
+            <div class="section" id="overview">
+                <h2 class="section-title">📚 Book Overview</h2>
+                <p class="summary-text">
+                    "An Introduction to Statistical Learning with Applications in Python" bridges statistical theory and practical machine learning. It provides an accessible introduction to statistical learning, focusing on regression, classification, and unsupervised learning, with hands-on Python examples. Designed for students and practitioners, it balances theory, intuition, and practical implementation, making it essential for modern data analysis.
+                </p>
+            </div>
+
+            <div class="section" id="toc">
+                <h2 class="section-title">📑 Table of Contents</h2>
+                <table>
+                    <tr>
+                        <th>Chapter</th>
+                        <th>Title</th>
+                    </tr>
+                    <tr><td>2</td><td>Statistical Learning</td></tr>
+                    <tr><td>3</td><td>Linear Regression</td></tr>
+                    <tr><td>4</td><td>Classification</td></tr>
+                    <tr><td>5</td><td>Resampling Methods</td></tr>
+                    <tr><td>6</td><td>Linear Model Selection and Regularization</td></tr>
+                    <tr><td>8</td><td>Tree-Based Methods</td></tr>
+                    <tr><td>9</td><td>Support Vector Machines</td></tr>
+                    <tr><td>10</td><td>Deep Learning</td></tr>
+                    <tr><td>12</td><td>Unsupervised Learning</td></tr>
+                </table>
+            </div>
+
+            <div class="section" id="chapters">
+                <h2 class="section-title">📖 Chapter Summaries</h2>
+                <div class="chapter-list">
+                    <div class="chapter-item">
+                        <div class="chapter-title">Statistical Learning</div>
+                        <div class="chapter-summary">Main Ideas: Introduces supervised and unsupervised learning, focusing on assessing model accuracy. Techniques: Assessing model accuracy using training and test sets, bias-variance tradeoff, and Python labs. Takeaways: Understanding model evaluation and bias-variance tradeoff is crucial. <a href="https://github.com/Damour221/LABS/tree/main/ch2" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Linear Regression</div>
+                        <div class="chapter-summary">Main Ideas: Covers simple and multiple linear regression, including coefficient estimation and diagnostics. Techniques: Least squares method, handling categorical predictors, and model fit assessment. Takeaways: Linear regression predicts continuous outcomes with careful assumption checks. <a href="https://github.com/Damour221/LABS/tree/main/ch3" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Classification</div>
+                        <div class="chapter-summary">Main Ideas: Explores classification techniques for categorical outcomes. Techniques: Logistic regression, Linear Discriminant Analysis (LDA), Quadratic Discriminant Analysis (QDA), and Naive Bayes. Takeaways: Requires understanding probability models and method selection. <a href="https://github.com/Damour221/LABS/tree/main/ch4" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Resampling Methods</div>
+                        <div class="chapter-summary">Main Ideas: Discusses cross-validation and bootstrap for model assessment. Techniques: K-fold cross-validation, leave-one-out cross-validation, and bootstrap resampling. Takeaways: Enhances model reliability with robust error estimates. <a href="https://github.com/Damour221/LABS/tree/main/ch5" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Linear Model Selection and Regularization</div>
+                        <div class="chapter-summary">Main Ideas: Focuses on selecting predictors and regularization. Techniques: Subset selection, ridge regression, lasso, and principal components regression. Takeaways: Regularization improves generalization by penalizing complexity. <a href="https://github.com/Damour221/LABS/tree/main/ch6" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Tree-Based Methods</div>
+                        <div class="chapter-summary">Main Ideas: Introduces decision trees, bagging, and random forests. Techniques: Decision trees, bagging, random forests, and boosting. Takeaways: Offers interpretable predictions with reduced overfitting. <a href="https://github.com/Damour221/LABS/tree/main/ch8" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Support Vector Machines</div>
+                        <div class="chapter-summary">Main Ideas: Covers support vector classifiers and machines. Techniques: Maximal margin classifier, support vector classifier, and SVMs with kernels. Takeaways: Effective for high-dimensional data with kernel tricks. <a href="https://github.com/Damour221/LABS/tree/main/ch9" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Deep Learning</div>
+                        <div class="chapter-summary">Main Ideas: Explores neural networks. Techniques: Neural networks, backpropagation, CNNs, and RNNs. Takeaways: Excels in complex tasks with careful tuning. <a href="https://github.com/Damour221/LABS/tree/main/ch10" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">Unsupervised Learning</div>
+                        <div class="chapter-summary">Main Ideas: Focuses on clustering and dimensionality reduction. Techniques: Principal Component Analysis (PCA), K-means, and hierarchical clustering. Takeaways: Uncovers hidden data structures. <a href="https://github.com/Damour221/LABS/tree/main/ch12" target="_blank">GitHub Notebook</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="algorithms">
+                <h2 class="section-title">⚙️ Algorithms Summary</h2>
+                <div class="chapter-list">
+                    <div class="chapter-item">
+                        <div class="chapter-title">For Regression Tasks</div>
+                        <div class="chapter-summary">Linear Regression, Ridge Regression, Lasso, Polynomial Regression, Regression Splines, Smoothing Splines, Local Regression, Tree-Based Regression, Support Vector Regression</div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">For Classification Tasks</div>
+                        <div class="chapter-summary">Logistic Regression, Linear Discriminant Analysis (LDA), Quadratic Discriminant Analysis (QDA), Naive Bayes, Support Vector Classifier, Support Vector Machine, Decision Trees, Random Forests, Boosting, Neural Networks</div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-title">For Unsupervised Tasks</div>
+                        <div class="chapter-summary">Principal Component Analysis (PCA), K-means Clustering, Hierarchical Clustering</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rating">
+                <div class="stars">★★★★★</div>
+                <p class="rating-text">A must-read for mastering statistical learning with Python</p>
+            </div>
+
+            <div class="cta-section">
+                <a href="https://drive.google.com/file/d/1kA5sOmix3evVAoXY_DUftibeVdy-aKHy/view?usp=sharing" class="cta-button">Get the Full Book</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Summarized by Jean d'Amour UWAMAHORO. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add subtle animations on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.chapter-item, .key-insight, .takeaway-item, .section');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                } else {
+                    element.style.opacity = '0.3';
+                    element.style.transform = 'translateY(20px)';
+                }
+            });
+        }
+
+        // Initialize animation styles and loading effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.chapter-item, .key-insight, .takeaway-item, .section');
+            elements.forEach(element => {
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+            });
+            setTimeout(() => animateOnScroll(), 500); // Delay to simulate loading
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Add click interaction for takeaway items
+        document.querySelectorAll('.takeaway-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.background = '#e8f8f5';
+                setTimeout(() => {
+                    this.style.background = 'white';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
